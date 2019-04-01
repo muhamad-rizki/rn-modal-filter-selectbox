@@ -27,8 +27,6 @@ interface Props extends ViewProps {
     placeholder?: string,
     onValueChange?: (value: string) => void,
     containerStyle: StyleProp<ViewStyle>,
-    placeholderStyle: StyleProp<TextStyle>,
-    modalStyle: StyleProp<ViewStyle>,
     modalContainerStyle: StyleProp<ViewStyle>,
     modalProps: ModalProps,
     modalTitle: string,
@@ -83,6 +81,7 @@ export default class RNSelectBox extends Component<Props> {
             borderColor: '#4b4b4b',
             paddingVertical: 12,
             paddingHorizontal: 16,
+            ...this.props.listItemStyle,
         }}>
             <TouchableOpacity
                 onPress={() => this.setState({
@@ -91,7 +90,11 @@ export default class RNSelectBox extends Component<Props> {
                 }, () => this.props.onValueChange(item.label))}
                 {...this.props.listItemTouchableProps}
             >
-                <Text>{item.label}</Text>
+                {
+                    this.props.customListItem
+                        ? this.props.customListItem
+                        : <Text style={this.props.listItemTextStyle}>{item.label}</Text>
+                }
             </TouchableOpacity>
         </View>
     )
@@ -119,6 +122,10 @@ export default class RNSelectBox extends Component<Props> {
             textStyle,
             iconRight,
             iconContainerStyle,
+            cancelButtonStyle,
+            cancelButtonText,
+            cancelButtonTextStyle,
+            customCancelButton,
         } = this.props;
         const { visible, data, selected, filteredData, keyword } = this.state;
         return (
@@ -184,34 +191,44 @@ export default class RNSelectBox extends Component<Props> {
                                 : null
                         }
                         <FlatList
-                            ListEmptyComponent={(
-                                <View style={{
-                                    padding: 16,
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}>
-                                    <Text style={{ textAlign: 'center' }}>Tidak Ada Data</Text>
-                                </View>
-                            )}
+                            ListEmptyComponent={emptyListComponent
+                                ? emptyListComponent
+                                : (
+                                    <View style={{
+                                        padding: 16,
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
+                                        <Text style={{ textAlign: 'center' }}>Tidak Ada Data</Text>
+                                    </View>
+                                )
+                            }
                             style={listStyle}
                             keyExtractor={(item, index) => index.toString()}
                             contentContainerStyle={listContainerStyle}
                             renderItem={this.renderItem}
                             data={_.isEmpty(keyword) ? data : filteredData}
                         />
-                        <TouchableOpacity
-                            style={{
-                                borderTopWidth: 0.5,
-                                borderColor: '#4b4b4b',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                paddingVertical: 12,
-                            }}
-                            onPress={() => this.setState({ visible: false })}
-                            {...cancelButtonTouchableProps}
-                        >
-                            <Text>CANCEL</Text>
-                        </TouchableOpacity>
+                        {
+                            customCancelButton
+                                ? customCancelButton(() => this.setState({ visible: false }))
+                                : (
+                                    <TouchableOpacity
+                                        style={{
+                                            borderTopWidth: 0.5,
+                                            borderColor: '#4b4b4b',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            paddingVertical: 12,
+                                            ...cancelButtonStyle
+                                        }}
+                                        onPress={() => this.setState({ visible: false })}
+                                        {...cancelButtonTouchableProps}
+                                    >
+                                        <Text style={cancelButtonTextStyle}>{cancelButtonText ? cancelButtonText : 'CANCEL'}</Text>
+                                    </TouchableOpacity>
+                                )
+                        }
                     </View>
                 </Modal>
             </View>
