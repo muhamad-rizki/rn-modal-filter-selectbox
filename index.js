@@ -126,6 +126,7 @@ export default class RNSelectBox extends Component<Props> {
             cancelButtonText,
             cancelButtonTextStyle,
             customCancelButton,
+            emptyListComponent,
         } = this.props;
         const { visible, data, selected, filteredData, keyword } = this.state;
         return (
