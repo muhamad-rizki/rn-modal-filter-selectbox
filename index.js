@@ -50,6 +50,10 @@ interface Props extends ViewProps {
     emptyListComponent: Component,
     showTitleModal: boolean,
     showSearchBar: boolean,
+    value: string,
+    listItemSelectedStyle: StyleProp<ViewStyle>,
+    listItemSelectedTouchableProps: TouchableOpacityProps,
+    listSelectedItemTextStyle: StyleProp<TextStyle>,
 }
 
 export default class RNSelectBox extends Component<Props> {
@@ -63,7 +67,7 @@ export default class RNSelectBox extends Component<Props> {
         this.state = {
             visible: false,
             data: props.data,
-            selected: null,
+            selected: props.value ? props.value : null,
             filteredData: [],
             keyword: null,
         }
@@ -82,6 +86,7 @@ export default class RNSelectBox extends Component<Props> {
             paddingVertical: 12,
             paddingHorizontal: 16,
             ...this.props.listItemStyle,
+            ...this.props.listItemSelectedStyle,
         }}>
             <TouchableOpacity
                 onPress={() => this.setState({
@@ -89,11 +94,21 @@ export default class RNSelectBox extends Component<Props> {
                     selected: item.label,
                 }, () => this.props.onValueChange(item.label))}
                 {...this.props.listItemTouchableProps}
+                {...this.props.listItemSelectedTouchableProps}
             >
                 {
                     this.props.customListItem
                         ? this.props.customListItem
-                        : <Text style={this.props.listItemTextStyle}>{item.label}</Text>
+                        : <Text
+                            style={[
+                                (this.state.selected === item.label)
+                                    ? {
+                                        fontWeight: 'bold',
+                                        ...this.props.listSelectedItemTextStyle
+                                    }
+                                    : null,
+                                this.props.listItemTextStyle
+                            ]}>{item.label}</Text>
                 }
             </TouchableOpacity>
         </View>
