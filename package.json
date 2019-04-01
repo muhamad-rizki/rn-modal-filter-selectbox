@@ -15,7 +15,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/hiddentao/react-native-modal-filter-picker.git"
+        "url": "git+https://github.com/muhamad-rizki/rn-modal-filter-selectbox.git"
     },
     "keywords": [
         "react",
@@ -35,7 +35,7 @@
     "author": "Muhamad Rizki <mrizkinya@gmail.com>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/hiddentao/react-native-modal-filter-picker/issues"
+        "url": "https://github.com/muhamad-rizki/rn-modal-filter-selectbox/issues"
     },
-    "homepage": "https://github.com/hiddentao/react-native-modal-filter-picker#readme"
+    "homepage": "https://github.com/muhamad-rizki/rn-modal-filter-selectbox#readme"
 }
