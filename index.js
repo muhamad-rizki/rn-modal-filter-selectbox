@@ -67,7 +67,10 @@ export default class RNSelectBox extends Component<Props> {
         this.state = {
             visible: false,
             data: props.data,
-            selected: props.value ? props.value : null,
+            selected: props.value
+                ? _.find(props.data,
+                    item => item.key === props.value || item.label === props.value).label
+                : null,
             filteredData: [],
             keyword: null,
         }
