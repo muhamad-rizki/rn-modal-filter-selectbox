@@ -194,6 +194,7 @@ export default class RNSelectBox extends Component<Props> {
                                 </View>
                             )}
                             style={listStyle}
+                            keyExtractor={(item, index) => index.toString()}
                             contentContainerStyle={listContainerStyle}
                             renderItem={this.renderItem}
                             data={_.isEmpty(keyword) ? data : filteredData}
