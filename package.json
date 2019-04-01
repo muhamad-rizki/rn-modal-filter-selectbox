@@ -12,6 +12,10 @@
         "react-native": ">=0.50.0",
         "react-native-modal": ">=9.0.0"
     },
+    "dependencies": {
+        "react-native-modal": "^9.0.0",
+        "lodash": "^4.17.11",
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/muhamad-rizki/rn-modal-filter-selectbox.git"
