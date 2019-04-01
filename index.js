@@ -25,7 +25,7 @@ interface Props extends ViewProps {
     iconRight: Component,
     iconContainerStyle: StyleProp<ViewStyle>,
     placeholder?: string,
-    onValueChange?: (value: string) => void,
+    onValueChange?: (valueKey: DataSelectBox) => void,
     containerStyle: StyleProp<ViewStyle>,
     modalContainerStyle: StyleProp<ViewStyle>,
     modalProps: ModalProps,
@@ -92,7 +92,7 @@ export default class RNSelectBox extends Component<Props> {
                 onPress={() => this.setState({
                     visible: false,
                     selected: item.label,
-                }, () => this.props.onValueChange(item.label))}
+                }, () => this.props.onValueChange(item))}
                 {...this.props.listItemTouchableProps}
                 {...this.props.listItemSelectedTouchableProps}
             >
