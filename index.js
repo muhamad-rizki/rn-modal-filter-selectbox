@@ -76,6 +76,12 @@ export default class RNSelectBox extends Component<Props> {
         }
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.data !== this.state.data) {
+            this.setState({ data: nextProps.data });
+        }
+    }
+
     filterList = (text) => {
         const { data } = this.state;
         this.setState({ filteredData: _.filter(data, item => item.label.indexOf(text) >= 0), keyword: text });
