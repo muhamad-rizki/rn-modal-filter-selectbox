@@ -188,7 +188,7 @@ export default class RNSelectBox extends Component<Props> {
                     isVisible={visible}
                     {...modalProps}
                 >
-                    <View style={{ backgroundColor: '#fff', borderRadius: 8, marginVertical: 24, ...modalContainerStyle }}>
+                    <View style={{ backgroundColor: '#fff', borderRadius: 8, marginVertical: 120, ...modalContainerStyle }}>
                         {
                             showTitleModal
                                 ? <View style={modalTitleContainerStyle}>
